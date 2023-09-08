@@ -71,6 +71,30 @@ const loginUser = (userLogin) => {
         }
     })
 }
+const updateUser = (id, data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const checkUser = await User.findOne({ _id: id })
+            // kiem tra user co trung khong
+            if (checkUser === null) {
+                resolve({
+                    status: "OK",
+                    message: "the user is not defined"
+                })
+            }
+            const updatedUser = await User.findByIdAndUpdate(id, data, { new: true })
+            console.log('updatedUser', updatedUser)
+            resolve({
+                status: "OK",
+                message: "SUCCESS",
+                data: updatedUser
+            })
+        }
+        catch (e) {
+            reject(e);
+        }
+    })
+}
 module.exports = {
-    createUser, loginUser
+    createUser, loginUser, updateUser
 }
