@@ -17,6 +17,7 @@ const genneralRefresToken = async (payload) => {
     )
     return refresh_token
 }
+
 module.exports = {
     genneralAccessToken,genneralRefresToken
 }

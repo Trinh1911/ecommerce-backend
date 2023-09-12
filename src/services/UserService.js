@@ -95,6 +95,28 @@ const updateUser = (id, data) => {
         }
     })
 }
+const deleteUser = (id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const checkUser = await User.findOne({ _id: id })
+            // kiem tra user co trung khong
+            if (checkUser === null) {
+                resolve({
+                    status: "OK",
+                    message: "the user is not defined"
+                })
+            }
+            // await User.findByIdAndDelete(id)
+            resolve({
+                status: "OK",
+                message: "DELETED SUCCESS"
+            })
+        }
+        catch (e) {
+            reject(e);
+        }
+    })
+}
 module.exports = {
-    createUser, loginUser, updateUser
+    createUser, loginUser, updateUser, deleteUser
 }
