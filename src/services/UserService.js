@@ -106,7 +106,7 @@ const deleteUser = (id) => {
                     message: "the user is not defined"
                 })
             }
-            // await User.findByIdAndDelete(id)
+            await User.findByIdAndDelete(id)
             resolve({
                 status: "OK",
                 message: "DELETED SUCCESS"
@@ -117,6 +117,43 @@ const deleteUser = (id) => {
         }
     })
 }
+const getAllUser = () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const allUser = await User.find()
+            resolve({
+                status: "OK",
+                message: "SUCCESS",
+                data: allUser
+            })
+        }
+        catch (e) {
+            reject(e);
+        }
+    })
+}
+const getDetailsUser = (id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const user = await User.findOne({ _id: id })
+            // kiem tra user co trung khong
+            if (user === null) {
+                resolve({
+                    status: "OK",
+                    message: "the user is not defined"
+                })
+            }
+            resolve({
+                status: "OK",
+                message: "SUCCESS",
+                data: user
+            })
+        }
+        catch (e) {
+            reject(e);
+        }
+    })
+}
 module.exports = {
-    createUser, loginUser, updateUser, deleteUser
+    createUser, loginUser, updateUser, deleteUser, getAllUser, getDetailsUser
 }
