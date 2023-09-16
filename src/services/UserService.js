@@ -9,7 +9,7 @@ const createUser = (newUser) => {
             // kiem tra user co trung khong
             if (checkUser !== null) {
                 resolve({
-                    status: "OK",
+                    status: "ERR",
                     message: "the user is already"
                 })
             }
@@ -21,7 +21,7 @@ const createUser = (newUser) => {
             })
             if (createdUser) {
                 resolve({
-                    status: "OK",
+                    status: "ERR",
                     message: "SUCCESS",
                     data: createdUser
                 })
@@ -34,20 +34,20 @@ const createUser = (newUser) => {
 }
 const loginUser = (userLogin) => {
     return new Promise(async (resolve, reject) => {
-        const { name, email, password, confirmPassword, phone } = userLogin
+        const { email, password} = userLogin
         try {
             const checkUser = await User.findOne({ email: email })
             // kiem tra user co trung khong
             if (checkUser === null) {
                 resolve({
-                    status: "OK",
+                    status: "ERR",
                     message: "the user is not defined"
                 })
             }
             const comparePassword = bcrypt.compareSync(password, checkUser.password)
             if (!comparePassword) {
                 resolve({
-                    status: "OK",
+                    status: "ERR",
                     message: "the password or user is incorrect"
                 })
             }

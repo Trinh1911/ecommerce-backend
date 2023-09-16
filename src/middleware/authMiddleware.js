@@ -7,7 +7,7 @@ const authMiddleware = (req, res, next) => {
         if(err) {
             return res.status(404).json({
                 message: 'The authentication',
-                status: 'ERROR'
+                status: 'ERR'
             })
         }
         const { payload } = user
@@ -16,7 +16,7 @@ const authMiddleware = (req, res, next) => {
         }else {
             return res.status(404).json({
                 message: 'The authentication',
-                status: 'ERROR'
+                status: 'ERR'
             })
         }
     })
@@ -28,7 +28,7 @@ const authUerMiddleware = (req, res, next) => {
         if(err) {
             return res.status(404).json({
                 message: 'The authentication',
-                status: 'ERROR'
+                status: 'ERR'
             })
         }
         const { payload } = user
@@ -37,7 +37,7 @@ const authUerMiddleware = (req, res, next) => {
         }else {
             return res.status(404).json({
                 message: 'The authentication',
-                status: 'ERROR'
+                status: 'ERR'
             })
         }
     })

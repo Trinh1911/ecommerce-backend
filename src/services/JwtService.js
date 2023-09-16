@@ -26,7 +26,7 @@ const refresTokenJwtService = (token) => {
                     console.log('err', err)
                     resolve(
                         {
-                            status: 'ERROR',
+                            status: 'ERR',
                             message: 'the authentication'
                         }
                     )
