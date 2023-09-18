@@ -126,16 +126,15 @@ const getDetailsUser = async (req, res) => {
 const refreshToken = async (req, res) => {
     console.log('req.cookies', req.cookies)
     try {
-        // const token = req.headers.token.split(' ')[1]
-        // if(!token) {
-        //     return res.status(200).json({
-        //         status: 'ERR',
-        //         message: 'The token is require'
-        //     })
-        // }
-        // const response = await JwtService.refresTokenJwtService(token)
-        // return res.status(200).json(response)
-        return
+        const token = req.cookies.refresh_token
+        if(!token) {
+            return res.status(200).json({
+                status: 'ERR',
+                message: 'The token is require'
+            })
+        }
+        const response = await JwtService.refresTokenJwtService(token)
+        return res.status(200).json(response)
     } catch (e) {
         return res.status(404).json({
             message: e
