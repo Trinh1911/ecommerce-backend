@@ -8,7 +8,7 @@ const createProduct = (newProduct) => {
             // kiem tra product co trung khong
             if (checkProduct !== null) {
                 resolve({
-                    status: "OK",
+                    status: "ERR",
                     message: "the product is already"
                 })
             }

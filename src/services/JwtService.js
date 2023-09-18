@@ -36,11 +36,10 @@ const refresTokenJwtService = (token) => {
                     id: payload?.id,
                     isAdmin: payload?.isAdmin
                 })
-                console.log('access token', access_token)
                 resolve({
                     status: "OK",
                     message: "SUCCESS",
-                    access_token: access_token
+                    access_token
                 })
             })
         }
