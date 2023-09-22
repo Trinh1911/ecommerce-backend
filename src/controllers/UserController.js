@@ -49,8 +49,10 @@ const loginUser = async (req, res) => {
         const response = await UserService.loginUser(req.body)
         const {refresh_token, ...newReponse} = response
         res.cookie('refresh_token', refresh_token, {
-            HttpOnly: true,
-            Secure: true,
+            httpOnly: true,
+            secure: false,
+            sameSite: 'strict',
+            path: '/',
         })
         // console.log('response', response)
         return res.status(200).json(newReponse)
@@ -124,7 +126,7 @@ const getDetailsUser = async (req, res) => {
     }
 }
 const refreshToken = async (req, res) => {
-    console.log('req.cookies', req.cookies)
+    console.log('req.cookies', req.cookies.refresh_token)
     try {
         const token = req.cookies.refresh_token
         if(!token) {
