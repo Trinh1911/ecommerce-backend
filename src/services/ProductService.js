@@ -31,24 +31,25 @@ const createProduct = (newProduct) => {
 const updateProduct = (id, data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const checkProduct = await Product.findOne({ _id: id })
+            const checkProduct = await Product.findOne({
+                _id: id
+            })
             // kiem tra Product co trung khong
             if (checkProduct === null) {
                 resolve({
-                    status: "OK",
-                    message: "the Product is not defined"
+                    status: 'ERR',
+                    message: 'The product is not defined'
                 })
             }
-            const updateProduct = await Product.findByIdAndUpdate(id, data, { new: true })
-            console.log('updatedUser', updateProduct)
+
+            const updatedProduct = await Product.findByIdAndUpdate(id, data, { new: true })
             resolve({
-                status: "OK",
-                message: "SUCCESS",
-                data: updateProduct
+                status: 'OK',
+                message: 'SUCCESS',
+                data: updatedProduct
             })
-        }
-        catch (e) {
-            reject(e);
+        } catch (e) {
+            reject(e)
         }
     })
 }
