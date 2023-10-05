@@ -98,6 +98,23 @@ const deleteUser = async (req, res) => {
         })
     }
 }
+const deleteUserMany = async (req, res) => {
+    try {
+        const ids = req.body
+        if(!ids) {
+            return res.status(200).json({
+                status: 'ERR',
+                message: 'The ids is require'
+            })
+        }
+        const response = await UserService.deleteUserMany(ids)
+        return res.status(200).json(response)
+    } catch (e) {
+        return res.status(404).json({
+            message: e
+        })
+    }
+}
 const getAllUser = async (req, res) => {
     try {
         const response = await UserService.getAllUser()
@@ -157,5 +174,5 @@ const logoutUser = async (req, res) => {
     }
 }
 module.exports = {
-    createUser, loginUser, updateUser, deleteUser, getAllUser, getDetailsUser, refreshToken, logoutUser
+    createUser, loginUser, updateUser, deleteUser, getAllUser, getDetailsUser, refreshToken, logoutUser,deleteUserMany
 }
