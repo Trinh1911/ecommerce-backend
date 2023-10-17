@@ -137,6 +137,21 @@ const getAllProduct = (limit, page, sort, filter) => {
         }
     })
 }
+const getAllType = () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const allType = await Product.distinct('type')
+            resolve({
+                status: "OK",
+                message: "SUCCESS",
+                data: allType,
+            })
+        }
+        catch (e) {
+            reject(e);
+        }
+    })
+}
 const getDetailProduct = (id) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -160,5 +175,5 @@ const getDetailProduct = (id) => {
     })
 }
 module.exports = {
-    createProduct, updateProduct, deleteProduct, getAllProduct, getDetailProduct, deleteManyProduct
+    createProduct, updateProduct, deleteProduct, getAllProduct, getDetailProduct, deleteManyProduct, getAllType
 }
