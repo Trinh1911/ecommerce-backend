@@ -34,7 +34,7 @@ const createUser = (newUser) => {
 }
 const loginUser = (userLogin) => {
     return new Promise(async (resolve, reject) => {
-        const { email, password} = userLogin
+        const { email, password } = userLogin
         try {
             const checkUser = await User.findOne({ email: email })
             // kiem tra user co trung khong
@@ -120,7 +120,7 @@ const deleteUser = (id) => {
 const deleteUserMany = (ids) => {
     return new Promise(async (resolve, reject) => {
         try {
-            await User.deleteMany({_id: ids})
+            await User.deleteMany({ _id: ids })
             resolve({
                 status: "OK",
                 message: "DELETED SUCCESS"
@@ -169,5 +169,5 @@ const getDetailsUser = (id) => {
     })
 }
 module.exports = {
-    createUser, loginUser, updateUser, deleteUser, getAllUser, getDetailsUser,deleteUserMany
+    createUser, loginUser, updateUser, deleteUser, getAllUser, getDetailsUser, deleteUserMany
 }
