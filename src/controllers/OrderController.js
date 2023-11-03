@@ -1,4 +1,4 @@
-const OrderSerice = require('../services/OrderService')
+const OrderService = require('../services/OrderService')
 
 const createOrder = async (req, res) => {
     try { 
@@ -9,7 +9,7 @@ const createOrder = async (req, res) => {
                 message: 'The input is required'
             })
         }
-        const response = await OrderSerice.createOrder(req.body)
+        const response = await OrderService.createOrder(req.body)
         return res.status(200).json(response)
     } catch (e) {
         return res.status(404).json({
@@ -19,5 +19,5 @@ const createOrder = async (req, res) => {
 }
 
 module.exports = {
-    createOrder,
+    createOrder
 }

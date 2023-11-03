@@ -9,7 +9,8 @@ const createOrder = (newOrder) => {
                 shippingAddress: {
                   fullName,
                   address,
-                  city, phone
+                  city,
+                  phone
                 },
                 paymentMethod,
                 itemsPrice,
