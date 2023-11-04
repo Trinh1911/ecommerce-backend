@@ -12,14 +12,14 @@ const createProduct = (newProduct) => {
                     message: "the product is already"
                 })
             }
-            const createdProduct = await Product.create({
-                name, image, type, price, countInStock, rating, description, discount, selled
+            const newProduct = await Product.create({
+                name, image, type, price, countInStock: Number (countInStock) , rating, description, discount: Number(discount), selled
             })
-            if (createdProduct) {
+            if (newProduct) {
                 resolve({
                     status: "OK",
                     message: "SUCCESS",
-                    data: createdProduct
+                    data: newProduct
                 })
             }
         }

@@ -1,37 +1,95 @@
 const Order = require("../models/OderProduct")
+const Product = require('../models/ProductModel');
 
 const createOrder = (newOrder) => {
     return new Promise(async (resolve, reject) => {
-        const { orderItems,paymentMethod, itemsPrice, shippingPrice, totalPrice, fullName, address, city, phone,user } = newOrder
+        const { orderItems, paymentMethod, itemsPrice, shippingPrice, totalPrice, fullName, address, city, phone, user } = newOrder
         try {
-            const createdOrder = await Order.create({
-                orderItems,
-                shippingAddress: {
-                  fullName,
-                  address,
-                  city,
-                  phone
-                },
-                paymentMethod,
-                itemsPrice,
-                shippingPrice,
-                totalPrice,
-                user: user,
+            const promises = orderItems.map(async (order) => {
+                const productData = await Product.findOneAndUpdate(
+                    {
+                        _id: order.product,
+                        countInStock: { $gte: order.amount }
+                    },
+                    {
+                        $inc: {
+                            countInStock: -order.amount,
+                            selled: +order.amount
+                        }
+                    },
+                    { new: true }
+                )
+                console.log('productData', productData)
+                if (productData) {
+                    const createdOrder = await Order.create({
+                        orderItems,
+                        shippingAddress: {
+                            fullName,
+                            address,
+                            city, phone
+                        },
+                        paymentMethod,
+                        itemsPrice,
+                        shippingPrice,
+                        totalPrice,
+                        user: user,
+                    })
+                    if (createdOrder) {
+                        return {
+                            status: 'OK',
+                            message: 'SUCCESS',
+                        }
+                    }
+                } else {
+                    return {
+                        status: 'OK',
+                        message: 'ERR',
+                        id: order.product
+                    }
+                }
             })
-            if (createdOrder) {
+            const results = await Promise.all(promises)
+            const newData = results && results.filter((item) => item.id)
+            console.log('newData',newData)
+            if (newData.length) {
                 resolve({
-                    status: 'OK',
-                    message: 'SUCCESS',
-                    data: createdOrder
+                    status: 'ERR',
+                    message: `Sản phẩm với id${newData.join(',')} không còn hàng`,
                 })
             }
+            resolve({
+                status: 'OK',
+                message: 'SUCCESS',
+            })
+            console.log('results', results)
         } catch (e) {
-          console.log('e', e)
+            console.log('e', e)
             reject(e)
         }
     })
 }
-
+const getDetailsOrder = (id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const order = await Order.findOne({ user: id })
+            // kiem tra user co trung khong
+            if (order === null) {
+                resolve({
+                    status: "OK",
+                    message: "the order is not defined"
+                })
+            }
+            resolve({
+                status: "OK",
+                message: "SUCCESS",
+                data: order
+            })
+        }
+        catch (e) {
+            reject(e);
+        }
+    })
+}
 module.exports = {
-    createOrder,
+    createOrder, getDetailsOrder
 }
