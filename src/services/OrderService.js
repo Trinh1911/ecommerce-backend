@@ -112,6 +112,28 @@ const getDetailsOrder = (id) => {
         }
     })
 }
+const cancelOrder = (id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const order = await Order.findByIdAndDelete(id)
+            // kiem tra user co trung khong
+            if (order === null) {
+                resolve({
+                    status: "OK",
+                    message: "the order is not defined"
+                })
+            }
+            resolve({
+                status: "OK",
+                message: "SUCCESS",
+                data: order
+            })
+        }
+        catch (e) {
+            reject(e);
+        }
+    })
+}
 module.exports = {
-    createOrder, getAllOrderDetails, getDetailsOrder
+    createOrder, getAllOrderDetails, getDetailsOrder, cancelOrder
 }
