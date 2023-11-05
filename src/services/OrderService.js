@@ -50,11 +50,11 @@ const createOrder = (newOrder) => {
             })
             const results = await Promise.all(promises)
             const newData = results && results.filter((item) => item.id)
-            console.log('newData',newData)
+            console.log('newData', newData)
             if (newData.length) {
                 resolve({
                     status: 'ERR',
-                    message: `Sản phẩm với id${newData.join(',')} không còn hàng`,
+                    message: `Sản phẩm với id${newData.id} không còn hàng`,
                 })
             }
             resolve({
