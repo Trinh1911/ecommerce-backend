@@ -17,7 +17,7 @@ const createOrder = async (req, res) => {
         })
     }
 }
-const getOrderDetails = async (req, res) => {
+const getAllOrderDetails = async (req, res) => {
     try {
         const UserId = req.params.id
         if (!UserId) {
@@ -26,7 +26,7 @@ const getOrderDetails = async (req, res) => {
                 message: 'The UserId is require'
             })
         }
-        const response = await OrderService.getDetailsOrder(UserId)
+        const response = await OrderService.getAllOrderDetails(UserId)
         return res.status(200).json(response)
     } catch (e) {
         return res.status(404).json({
@@ -35,5 +35,5 @@ const getOrderDetails = async (req, res) => {
     }
 }
 module.exports = {
-    createOrder, getOrderDetails
+    createOrder, getAllOrderDetails
 }

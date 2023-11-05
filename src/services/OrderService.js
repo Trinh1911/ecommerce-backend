@@ -68,7 +68,7 @@ const createOrder = (newOrder) => {
         }
     })
 }
-const getDetailsOrder = (id) => {
+const getAllOrderDetails = (id) => {
     return new Promise(async (resolve, reject) => {
         try {
             const order = await Order.findOne({ user: id })
@@ -91,5 +91,5 @@ const getDetailsOrder = (id) => {
     })
 }
 module.exports = {
-    createOrder, getDetailsOrder
+    createOrder, getAllOrderDetails
 }
