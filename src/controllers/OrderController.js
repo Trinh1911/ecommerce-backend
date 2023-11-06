@@ -54,13 +54,14 @@ const getDetailsOrder = async (req, res) => {
 const cancelOrder = async (req, res) => {
     try {
         const OrderId = req.params.id
+        const data = req.body
         if (!OrderId) {
             return res.status(200).json({
                 status: 'ERR',
                 message: 'The OrderId is require'
             })
         }
-        const response = await OrderService.cancelOrder(OrderId)
+        const response = await OrderService.cancelOrder(OrderId, data)
         return res.status(200).json(response)
     } catch (e) {
         return res.status(404).json({
