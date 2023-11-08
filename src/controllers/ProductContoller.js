@@ -27,7 +27,6 @@ const updateProduct = async (req, res) => {
                 message: 'The productId is require'
             })
         }
-        console.log('ProductId', productId)
         const response = await ProductService.updateProduct(productId, data)
         return res.status(200).json(response)
     } catch (e) {

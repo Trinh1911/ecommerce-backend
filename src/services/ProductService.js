@@ -111,7 +111,6 @@ const getAllProduct = (limit, page, sort, filter) => {
             if (sort) {
                 const objectSort = {}
                 objectSort[sort[1]] = sort[0]
-                console.log('objectSort', objectSort)
                 const allProductSort = await Product.find().limit(limit).skip(page * limit).sort(objectSort)
                 resolve({
                     status: "OK",

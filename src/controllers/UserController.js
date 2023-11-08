@@ -34,7 +34,6 @@ const loginUser = async (req, res) => {
         const {email, password} = req.body
         const reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
         const isCheckEmail = reg.test(email)
-        console.log(email, password)
         if ( !email || !password ) {
             return res.status(200).json({
                 status: 'ERR',
@@ -72,7 +71,6 @@ const updateUser = async (req, res) => {
                 message: 'The userId is require'
             })
         }
-        console.log('userId', userId)
         const response = await UserService.updateUser(userId, data)
         return res.status(200).json(response)
     } catch (e) {
@@ -143,7 +141,6 @@ const getDetailsUser = async (req, res) => {
     }
 }
 const refreshToken = async (req, res) => {
-    console.log('req.cookies', req.cookies.refresh_token)
     try {
         const token = req.cookies.refresh_token
         if(!token) {
