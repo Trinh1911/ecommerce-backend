@@ -20,10 +20,15 @@ const createUser = (newUser) => {
             })
             if (createdUser) {
                 resolve({
-                    status: "ERR",
+                    status: "SUCCESS",
                     message: "SUCCESS",
                     data: createdUser
                 })
+            } else {
+                return {
+                    status: 'ERR',
+                    message: 'ERR',
+                }
             }
         }
         catch (e) {
@@ -43,6 +48,14 @@ const loginUser = (userLogin) => {
                     message: "the user is not defined"
                 })
             }
+            if (!checkUser) {
+                resolve(
+                    {
+                        status: "ERR",
+                        message: "the user is not defined"
+                    }
+                )
+            }
             const comparePassword = bcrypt.compareSync(password, checkUser.password)
             if (!comparePassword) {
                 resolve({
@@ -59,7 +72,7 @@ const loginUser = (userLogin) => {
                 isAdmin: checkUser.isAdmin
             })
             resolve({
-                status: "OK",
+                status: "SUCCESS",
                 message: "SUCCESS",
                 access_token,
                 refresh_token
