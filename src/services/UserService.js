@@ -45,14 +45,14 @@ const loginUser = (userLogin) => {
             if (checkUser === null) {
                 resolve({
                     status: "ERR",
-                    message: "the user is not defined"
+                    message: "Tài khoản không tồn tại"
                 })
             }
             if (!checkUser) {
                 resolve(
                     {
                         status: "ERR",
-                        message: "the user is not defined"
+                        message: "Tài khoản không tồn tại"
                     }
                 )
             }
