@@ -15,6 +15,7 @@ const productSchema = new mongoose.Schema(
         netWork: { type: String },
         wirelessSecurity: { type: String },
         powerSupply: { type: String },
+        descriptionType: { type: String },
     },
     {
         timestamps: true,
